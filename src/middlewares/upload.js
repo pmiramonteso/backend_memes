@@ -3,8 +3,12 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 
+const __filename = new URL(import.meta.url).pathname;
+const __dirname = path.dirname(__filename);
+
 const maxSize = 2 * 1024 * 1024;
 const uploadsDir = path.join(__dirname, '..', 'uploads');
+
 
 // Configuración de almacenamiento
 const storage = multer.diskStorage({
