@@ -1,7 +1,7 @@
-const { validationResult } = require('express-validator');
-const Usuario = require('../models/usuarioModel');
-const fs = require('fs');
-const path = require('path');
+import { validationResult } from 'express-validator';
+import Usuario from '../models/usuarioModel.js';
+import fs from 'fs';
+import path from 'path';
 
 const obtenerUsuario = async (req, res) => {
   try {
@@ -67,6 +67,6 @@ const actualizarUsuario = async (req, res) => {
   }
 };
 
-exports.obtenerUsuario = obtenerUsuario;
-exports.actualizarUsuario = actualizarUsuario;
+export { obtenerUsuario, actualizarUsuario };
+
 

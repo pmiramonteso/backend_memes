@@ -2,8 +2,8 @@ import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import Usuario from '../models/usuarioModel.js';
-import RecoveryToken from '../models/recoveryTokenModel';
-import sendEmail from "../utils/email/sendEmail";
+import RecoveryToken from '../models/recoveryTokenModel.js';
+import sendEmail from "../utils/email/sendEmail.js";
 import { validationResult } from 'express-validator';
 import { serialize } from 'cookie';
 
