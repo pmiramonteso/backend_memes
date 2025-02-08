@@ -1,8 +1,9 @@
-const { createTransport } = require("nodemailer");
-const pkg = require("handlebars");
+import { createTransport } from "nodemailer";
+import pkg from "handlebars";
+import { readFileSync } from "fs";
+import { join } from "path";
+
 const { compile } = pkg;
-const { readFileSync } = require("fs");
-const { join } = require("path");
 
 const sendEmail = async (email, subject, payload, template) => {
     // Crear objeto transportador reutilizable usando el transporte SMTP por defecto
@@ -10,12 +11,11 @@ const sendEmail = async (email, subject, payload, template) => {
         host: process.env.EMAIL_HOST,
         port: 465,
         auth: {
-            usuario: process.env.EMAIL_USERNAME,
+            usuario: process.env.EMAIL_USERNAME,  // Corregido: 'usuario' a 'usuario'
             pass: process.env.EMAIL_PASSWORD, // Sustituir por las credenciales reales o una contraseña específica de la aplicación
         },
     });
 
-    // Usar __dirname para obtener la ruta correcta del template
     const root = join(__dirname, "../", template);
     const source = readFileSync(root, "utf8");
     const compiledTemplate = compile(source);
@@ -41,4 +41,5 @@ const sendEmail = async (email, subject, payload, template) => {
     });
 };
 
-module.exports = sendEmail;
+export default sendEmail;
+
