@@ -23,7 +23,7 @@ const app = express();
 
 // Middlewares
 app.use(cors({
-  origin: 'http://lasociedadelmeme.com',
+  origin: 'https://lasociedadelmeme.com',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
@@ -41,7 +41,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/assets/img', express.static(path.join(__dirname, '/uploads')));
 
 // Servir archivos estáticos del frontend
-app.use(express.static(path.join(__dirname, '/lasociedadelmeme')));
+app.use(express.static(path.join(__dirname, '/frontend')));
 
 // Rutas administrativas
 app.use('/api/admin/memes', authenticateToken(['admin']), memeRutas);
@@ -61,10 +61,10 @@ app.use('/api/v1', verificarApiKey, memeRutas);
 
 // Redirigir todas las rutas no específicas de la API a index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/lasociedadelmeme/index.html'));
+  res.sendFile(path.join(__dirname, '/frontend/index.html'));
 });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor de Express escuchando en el puerto ` + PORT);
 });
