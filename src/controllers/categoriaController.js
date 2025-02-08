@@ -1,8 +1,8 @@
-import { Categoria } from '../models/categoriaModel.js';
+import { Categorias } from '../models/categoriaModel.js';
 
 const obtenerCategorias = async (req, res) => {
   try {
-    const categorias = await Categoria.findAll();
+    const categorias = await Categorias.findAll();
     res.status(200).json(categorias);
   } catch (error) {
     res.status(500).json({ message: 'Error al obtener las categorías', error });
@@ -11,7 +11,7 @@ const obtenerCategorias = async (req, res) => {
 
 const obtenerCategoriaPorId = async (req, res) => {
   try {
-    const categoria = await Categoria.findByPk(req.params.id);
+    const categoria = await Categorias.findByPk(req.params.id);
     if (!categoria) {
       return res.status(404).json({ message: 'Categoría no encontrada' });
     }
@@ -26,7 +26,7 @@ const agregarCategoria = async (req, res) => {
     const { nombre, color_fondo, degradado, posicion_imagen, descripcion } = req.body;
     const imagen = req.file ? req.file.filename : '';
 
-    const nuevaCategoria = await Categoria.create({
+    const nuevaCategoria = await Categorias.create({
       nombre,
       color_fondo,
       degradado,
@@ -46,7 +46,7 @@ const actualizarCategoria = async (req, res) => {
   try {
     const { nombre, color_fondo, degradado, posicion_imagen, imagen, descripcion } = req.body;
 
-    const categoria = await Categoria.findByPk(req.params.id);
+    const categoria = await Categorias.findByPk(req.params.id);
 
     if (!categoria) {
       return res.status(404).json({ message: 'Categoría no encontrada' });
@@ -70,7 +70,7 @@ const actualizarCategoria = async (req, res) => {
 
 const eliminarCategoria = async (req, res) => {
   try {
-    const categoria = await Categoria.findByPk(req.params.id);
+    const categoria = await Categorias.findByPk(req.params.id);
 
     if (!categoria) {
       return res.status(404).json({ message: 'Categoría no encontrada' });
