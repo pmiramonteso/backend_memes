@@ -11,7 +11,6 @@ router.get('/public/all', memeController.obtenerMemes);
 router.get('/public/categoria/:categoria', memeController.obtenerMemesPorCategoria);
 
 // Rutas protegidas por API Key
-router.get('/public/categoria/:categoria', memeController.obtenerMemesPorCategoria);
 router.get('/memes', verificarApiKey, memeController.obtenerMemes);
 router.get('/memes/:id', verificarApiKey, memeController.obtenerMemePorId);
 

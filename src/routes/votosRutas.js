@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import votoController from '../controllers/votoController.js';
+import { votarMeme, obtenerVotosPorMeme } from '../controllers/votoController.js';
 
 const router = Router();
 
-router.post('/votos/meme/:id', votoController.votarMeme);
-router.get('/votos/meme/:id', votoController.obtenerVotosPorMeme);
+router.post('/votos/meme/:id', votarMeme);
+router.get('/votos/meme/:id', obtenerVotosPorMeme);
 
 export default router;

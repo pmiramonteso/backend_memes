@@ -1,5 +1,6 @@
 import Voto from '../models/votosModel.js';
 import Meme from '../models/memeModel.js';
+
 const votarMeme = async (req, res) => {
   try {
     const { tipo_voto } = req.body; // tipo_voto puede ser 1, 2, 3
