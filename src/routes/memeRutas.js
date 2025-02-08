@@ -1,8 +1,8 @@
-const express = require('express');
-const { authenticateToken } = require('../middlewares/authenticateToken.js');
-const { verificarApiKey } = require('../middlewares/verificarApiKey.js');
-const memeController = require('../controllers/memeController');
-const { uploadFileMiddleware } = require("../middlewares/upload");
+import express from 'express';
+import { authenticateToken } from '../middlewares/authenticateToken.js';
+import { verificarApiKey } from '../middlewares/verificarApiKey.js';
+import * as memeController from '../controllers/memeController.js';
+import { uploadFileMiddleware } from "../middlewares/upload.js";
 
 const router = express.Router();
 
@@ -16,8 +16,8 @@ router.get('/memes', verificarApiKey, memeController.obtenerMemes);
 router.get('/memes/:id', verificarApiKey, memeController.obtenerMemePorId);
 
 // Rutas administrativas
-router.post('/admin/memes', authenticateToken(['admin']), uploadFileMiddleware, memeController.agregarMeme); //authenticateToken(['admin']), para estos 3
+router.post('/admin/memes', authenticateToken(['admin']), uploadFileMiddleware, memeController.agregarMeme);
 router.patch('/admin/memes/:id', authenticateToken(['admin']), uploadFileMiddleware, memeController.actualizarMeme);
 router.delete('/admin/memes/:id', authenticateToken(['admin']), memeController.eliminarMeme);
 
-module.exports = router;
+export default router;

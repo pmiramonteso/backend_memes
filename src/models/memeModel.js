@@ -1,6 +1,6 @@
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('../db.js');
-const Categorias = require('./categoriaModel.js');
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../db.js';
+import Categorias from './categoriaModel.js';
 
 const Meme = sequelize.define('memes', {
     id: {
@@ -43,4 +43,4 @@ Categorias.hasMany(Meme, {
     as: 'memes'
 });
 
-module.exports = Meme;
+export default Meme;

@@ -1,6 +1,6 @@
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('../db.js');
-const Meme = require('./memeModel.js');
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../db.js';
+import Meme from './memeModel.js';
 
 const Voto = sequelize.define('Voto', {
   id: {
@@ -20,4 +20,5 @@ const Voto = sequelize.define('Voto', {
 Meme.hasMany(Voto, { foreignKey: 'meme_id', onDelete: 'CASCADE' });
 Voto.belongsTo(Meme, { foreignKey: 'meme_id' });
 
-module.exports = Voto;
+export default Voto;
+

@@ -1,6 +1,6 @@
-const { Router } = require('express');
-const { obtenerUsuario, actualizarUsuario } = require('../controllers/usuarioController.js');
-const { authenticateToken } = require('../middlewares/authenticateToken.js');
+import { Router } from 'express';
+import { obtenerUsuario, actualizarUsuario } from '../controllers/usuarioController.js';
+import { authenticateToken } from '../middlewares/authenticateToken.js';
 
 const router = Router();
 
@@ -8,4 +8,5 @@ const router = Router();
 router.get('/perfil', obtenerUsuario);
 router.patch('/:id', actualizarUsuario);
 
-module.exports = router;
+export default router;
+

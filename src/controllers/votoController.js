@@ -39,7 +39,6 @@ const obtenerVotosPorMeme = async (req, res) => {
   }
 };
 
-module.exports = {
-  votarMeme,
-  obtenerVotosPorMeme,
-};
+exports.votarMeme = votarMeme;
+exports.obtenerVotosPorMeme = obtenerVotosPorMeme;
+

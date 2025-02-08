@@ -1,5 +1,5 @@
-const Meme = require('../models/memeModel');
-const Categorias = require('../models/categoriaModel');
+import Meme from '../models/memeModel.js';
+import Categorias from '../models/categoriaModel.js';
 
 const obtenerMemes = async (req, res) => {
     try {
@@ -34,6 +34,7 @@ const obtenerMemePorId = async (req, res) => {
         res.status(500).json({ message: 'Error al obtener el meme', error });
     }
 };
+
 const obtenerMemesPorCategoria = async (req, res) => {
     try {
         const categoriaNombre = req.params.categoria;
@@ -65,6 +66,7 @@ const obtenerMemesPorCategoria = async (req, res) => {
         res.status(500).json({ message: 'Error al obtener los memes por categoría', error });
     }
 };
+
 const agregarMeme = async (req, res) => {
     try {
         if (!req.file) {
@@ -165,11 +167,11 @@ const eliminarMeme = async (req, res) => {
     }
 };
 
-module.exports = {
+export {
     obtenerMemes,
     obtenerMemePorId,
     obtenerMemesPorCategoria,
     agregarMeme,
     actualizarMeme,
-    eliminarMeme,
+    eliminarMeme
 };

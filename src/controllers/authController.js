@@ -1,15 +1,15 @@
-const bcrypt = require('bcrypt');
-const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
-const Usuario = require('../models/usuarioModel');
-const RecoveryToken = require('../models/recoveryTokenModel');
-const sendEmail = require("../utils/email/sendEmail");
-const { validationResult } = require('express-validator');
-const { serialize } = require('cookie');
+import bcrypt from 'bcrypt';
+import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
+import Usuario from '../models/usuarioModel';
+import RecoveryToken from '../models/recoveryTokenModel';
+import sendEmail from "../utils/email/sendEmail";
+import { validationResult } from 'express-validator';
+import { serialize } from 'cookie';
 
 const usuarioURL = process.env.USER_URL;
 
-const registro = async (req, res) => {
+export const registro = async (req, res) => {
     try {
       const errors = validationResult(req);
 
@@ -67,7 +67,7 @@ const registro = async (req, res) => {
     }
 };
 
-const login = async (req, res) => {
+export const login = async (req, res) => {
   try {
     const errors = validationResult(req);
 
@@ -93,7 +93,6 @@ const login = async (req, res) => {
       });
     }
 
-    // Generar un token con toda la información necesaria
     const accessToken = jwt.sign(
       { 
         id_usuario: usuario.id_usuario, 
@@ -110,7 +109,7 @@ const login = async (req, res) => {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: 7200000 // 2 horas en milisegundos
+      maxAge: 7200000
     });
 
     res.status(200).json({
@@ -137,7 +136,7 @@ const login = async (req, res) => {
   }
 };
 
-const forgotPassword = async (req, res) => {
+export const forgotPassword = async (req, res) => {
     try {
       const errors = validationResult(req);
 
@@ -203,7 +202,7 @@ const forgotPassword = async (req, res) => {
     }
 };
 
-const changePassword = async (req, res) => {
+export const changePassword = async (req, res) => {
     try {
       const errors = validationResult(req);
  
@@ -269,7 +268,7 @@ const changePassword = async (req, res) => {
     }
 };
 
-const logout = async (req, res) => {
+export const logout = async (req, res) => {
     const { cookies } = req;
     const jwt = cookies.token;
   
@@ -285,12 +284,4 @@ const logout = async (req, res) => {
       code: 0,
       message: 'Logged out - Delete Token',
     });
-};
-
-module.exports = {
-  registro,
-  login,
-  forgotPassword,
-  changePassword,
-  logout
 };

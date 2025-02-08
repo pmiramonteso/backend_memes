@@ -1,6 +1,6 @@
-const { Router } = require('express');
-const { authenticateToken } = require('../middlewares/authenticateToken.js');
-const { allAccess, userBoard, moderatorBoard, adminBoard } = require('../controllers/testController.js');
+import { Router } from 'express';
+import { authenticateToken } from '../middlewares/authenticateToken.js';
+import { allAccess, userBoard, moderatorBoard, adminBoard } from '../controllers/testController.js';
 
 const router = Router();
 
@@ -9,4 +9,5 @@ router.get('/all', allAccess);
 router.get('/usuario', authenticateToken(['usuario']), userBoard);
 router.get('/admin', authenticateToken(['admin']), adminBoard);
 
-module.exports = router;
+export default router;
+

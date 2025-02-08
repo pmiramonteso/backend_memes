@@ -1,4 +1,4 @@
-const Usuario = require('./models/usuarioModel');
+import Usuario from './models/usuarioModel.js';
 
 const insertInitialUserData = async () => {
 
@@ -11,4 +11,4 @@ const insertInitialUserData = async () => {
   await Usuario.bulkCreate(usuarioData, { ignoreDuplicates: true });
 };
 
-module.exports = { insertInitialUserData };
+export { insertInitialUserData };

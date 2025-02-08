@@ -1,10 +1,11 @@
-const util = require("util");
-const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
+import util from 'util';
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
 
 const maxSize = 2 * 1024 * 1024;
-const uploadsDir = path.join(__dirname, '..', 'uploads'); 
+const uploadsDir = path.join(__dirname, '..', 'uploads');
+
 // Configuración de almacenamiento
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -35,4 +36,4 @@ let uploadFile = multer({
 
 const uploadFileMiddleware = util.promisify(uploadFile);
 
-module.exports = { uploadFileMiddleware };
+export { uploadFileMiddleware };

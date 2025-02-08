@@ -1,4 +1,4 @@
-const Categoria = require('../models/categoriaModel');
+import { Categoria } from '../models/categoriaModel.js';
 
 const obtenerCategorias = async (req, res) => {
   try {
@@ -22,53 +22,51 @@ const obtenerCategoriaPorId = async (req, res) => {
 };
 
 const agregarCategoria = async (req, res) => {
-    try {
-      const { nombre, color_fondo, degradado, posicion_imagen, descripcion } = req.body;
-      const imagen = req.file ? req.file.filename : '';
-  
-      const nuevaCategoria = await Categoria.create({
-        nombre,
-        color_fondo,
-        degradado,
-        posicion_imagen,
-        imagen,
-        descripcion
-      });
-  
-      res.status(201).json(nuevaCategoria);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Error al agregar la categoría', error: error.message });
-    }
-  };
-  
+  try {
+    const { nombre, color_fondo, degradado, posicion_imagen, descripcion } = req.body;
+    const imagen = req.file ? req.file.filename : '';
 
-  const actualizarCategoria = async (req, res) => {
-    try {
-      const { nombre, color_fondo, degradado, posicion_imagen, imagen, descripcion } = req.body;
-      
-      const categoria = await Categoria.findByPk(req.params.id);
-  
-      if (!categoria) {
-        return res.status(404).json({ message: 'Categoría no encontrada' });
-      }
+    const nuevaCategoria = await Categoria.create({
+      nombre,
+      color_fondo,
+      degradado,
+      posicion_imagen,
+      imagen,
+      descripcion
+    });
 
-      categoria.nombre = nombre || categoria.nombre;
-      categoria.color_fondo = color_fondo || categoria.color_fondo;
-      categoria.degradado = degradado || categoria.degradado;
-      categoria.posicion_imagen = posicion_imagen || categoria.posicion_imagen;
-      categoria.imagen = imagen || categoria.imagen;
-      categoria.descripcion = descripcion || categoria.descripcion;
-  
-      await categoria.save();
-  
-      res.status(200).json({ message: 'Categoría actualizada correctamente', categoria });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Error al actualizar la categoría', error });
+    res.status(201).json(nuevaCategoria);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al agregar la categoría', error: error.message });
+  }
+};
+
+const actualizarCategoria = async (req, res) => {
+  try {
+    const { nombre, color_fondo, degradado, posicion_imagen, imagen, descripcion } = req.body;
+
+    const categoria = await Categoria.findByPk(req.params.id);
+
+    if (!categoria) {
+      return res.status(404).json({ message: 'Categoría no encontrada' });
     }
-  };
-  
+
+    categoria.nombre = nombre || categoria.nombre;
+    categoria.color_fondo = color_fondo || categoria.color_fondo;
+    categoria.degradado = degradado || categoria.degradado;
+    categoria.posicion_imagen = posicion_imagen || categoria.posicion_imagen;
+    categoria.imagen = imagen || categoria.imagen;
+    categoria.descripcion = descripcion || categoria.descripcion;
+
+    await categoria.save();
+
+    res.status(200).json({ message: 'Categoría actualizada correctamente', categoria });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al actualizar la categoría', error });
+  }
+};
 
 const eliminarCategoria = async (req, res) => {
   try {
@@ -85,7 +83,7 @@ const eliminarCategoria = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   obtenerCategorias,
   obtenerCategoriaPorId,
   agregarCategoria,

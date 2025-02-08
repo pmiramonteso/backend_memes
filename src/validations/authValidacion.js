@@ -1,6 +1,6 @@
-const { body } = require('express-validator');
+import { body } from 'express-validator';
 
-const loginValidator = [
+export const loginValidator = [
     body("email")
         .isEmail()
         .withMessage("Proporcione un correo válido"),
@@ -13,7 +13,7 @@ const loginValidator = [
         .withMessage("La contraseña debe tener al menos 6 caracteres")
 ];
 
-const registroValidator = [
+export const registroValidator = [
     body("nombre")
         .exists()
         .withMessage("El nombre es obligatorio")
@@ -42,13 +42,13 @@ const registroValidator = [
         .withMessage("La contraseña debe tener al menos 6 caracteres")
 ];
 
-const forgotPasswordValidator = [
+export const forgotPasswordValidator = [
     body("email")
         .isEmail()
         .withMessage("Proporcione un correo válido")
 ];
 
-const changePasswordValidator = [
+export const changePasswordValidator = [
     body("token")
         .exists()
         .withMessage("El token es obligatorio"),
@@ -61,10 +61,4 @@ const changePasswordValidator = [
         .withMessage("La contraseña debe tener al menos 6 caracteres")
 ];
 
-module.exports = {
-    loginValidator,
-    registroValidator,
-    forgotPasswordValidator,
-    changePasswordValidator
-};
 

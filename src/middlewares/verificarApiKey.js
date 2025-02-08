@@ -1,4 +1,4 @@
-const ApiKey = require('../models/apiKeyModel');
+import ApiKey from '../models/apiKeyModel.js';
 
 const verificarApiKey = async (req, res, next) => {
   try {
@@ -27,7 +27,6 @@ const verificarApiKey = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  verificarApiKey
-};
+export { verificarApiKey };
+
   

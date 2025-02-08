@@ -1,5 +1,5 @@
-const crypto = require('crypto');
-const ApiKey = require('../models/apiKeyModel');
+import crypto from 'crypto';
+import ApiKey from '../models/apiKeyModel.js';
 
 const generateApiKey = async (usuarioId) => {
   let apiKey;
@@ -43,33 +43,32 @@ const obtenerApiKey = async (req, res) => {
   }
 };
 
+const revocarApiKey = async (req, res) => {
+  try {
+    const apiKey = req.headers['x-api-key'];
 
-  const revocarApiKey = async (req, res) => {
-    try {
-      const apiKey = req.headers['x-api-key'];
-  
-      if (!apiKey) {
-        return res.status(400).json({ message: 'API Key no proporcionada' });
-      }
-  
-      const apiKeyRecord = await ApiKey.findOne({ where: { key: apiKey } });
-      if (!apiKeyRecord) {
-        return res.status(400).json({ message: 'API Key no válida' });
-      }
-  
-      apiKeyRecord.status = 'revocado';
-      await apiKeyRecord.save();
-  
-      res.status(200).json({ message: 'API Key revocada correctamente' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Error al revocar la API Key' });
+    if (!apiKey) {
+      return res.status(400).json({ message: 'API Key no proporcionada' });
     }
-  };
-  
-  module.exports = {
-    generateApiKey,
-    obtenerApiKey,
-    revocarApiKey
-  };
-  
+
+    const apiKeyRecord = await ApiKey.findOne({ where: { key: apiKey } });
+    if (!apiKeyRecord) {
+      return res.status(400).json({ message: 'API Key no válida' });
+    }
+
+    apiKeyRecord.status = 'revocado';
+    await apiKeyRecord.save();
+
+    res.status(200).json({ message: 'API Key revocada correctamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al revocar la API Key' });
+  }
+};
+
+export {
+  generateApiKey,
+  obtenerApiKey,
+  revocarApiKey
+};
+

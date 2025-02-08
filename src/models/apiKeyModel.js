@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('../db.js');
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../db.js';
 
 const ApiKey = sequelize.define('ApiKey', {
   id_apikey: {
@@ -10,7 +10,7 @@ const ApiKey = sequelize.define('ApiKey', {
   key: {
     type: DataTypes.STRING(100),
     allowNull: false,
-    unique: true, //AQUI esta el problema de recovery?
+    unique: true, // Asegúrate de que no haya duplicados en la base de datos
   },
   usuario_id: {
     type: DataTypes.INTEGER(5).UNSIGNED,
@@ -40,4 +40,4 @@ const ApiKey = sequelize.define('ApiKey', {
   createdAt: 'created_at',
 });
 
-module.exports = ApiKey;
+export default ApiKey;

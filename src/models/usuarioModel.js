@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('../db.js');
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../db.js';
 
 const Usuario = sequelize.define('Usuario', {
   id_usuario: {
@@ -39,7 +39,6 @@ const Usuario = sequelize.define('Usuario', {
         this.setDataValue('roles', value.join(','));
       } else if (typeof value === 'string') {
         this.setDataValue('roles', value);
-      } else {
       }
     }
   },
@@ -50,4 +49,4 @@ const Usuario = sequelize.define('Usuario', {
   createdAt: 'created_at'
 });
 
-module.exports = Usuario;
+export default Usuario;

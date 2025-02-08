@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const Usuario = require('../models/usuarioModel.js');
+import jwt from 'jsonwebtoken';
+import Usuario from '../models/usuarioModel.js';
 
 const authenticateToken = (allowedRoles) => async (req, res, next) => {
   try {
@@ -73,4 +73,5 @@ const authenticateToken = (allowedRoles) => async (req, res, next) => {
   }
 };
 
-module.exports = { authenticateToken };
+export { authenticateToken };
+

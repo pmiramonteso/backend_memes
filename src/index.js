@@ -1,29 +1,29 @@
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const path = require('path');
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import path from 'path';
 
-const authRutas = require('./routes/authRutas');
-const usuarioRutas = require('./routes/usuarioRutas');
-const testRoutes = require('./routes/testRutas');
-const memeRutas = require('./routes/memeRutas');
-const categoriaRutas = require('./routes/categoriaRutas');
-const votosRutas = require('./routes/votosRutas');
-const apiKeyRutas = require('./routes/apiKeyRutas');
+import authRutas from './routes/authRutas.js';
+import usuarioRutas from './routes/usuarioRutas.js';
+import testRoutes from './routes/testRutas.js';
+import memeRutas from './routes/memeRutas.js';
+import categoriaRutas from './routes/categoriaRutas.js';
+import votosRutas from './routes/votosRutas.js';
+import apiKeyRutas from './routes/apiKeyRutas.js';
 
-const { verificarApiKey } = require('./middlewares/verificarApiKey');
-const { testConnection } = require('./db');
-const { authenticateToken } = require('./middlewares/authenticateToken');
+import { verificarApiKey } from './middlewares/verificarApiKey.js';
+import { testConnection } from './db.js';
+import { authenticateToken } from './middlewares/authenticateToken.js';
 
-const { insertInitialUserData } = require('./start_data');
-const dotenv = require('dotenv');
+import { insertInitialUserData } from './start_data.js';
+import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
 
 // Middlewares
 app.use(cors({
-  origin: 'https://lasociedadelmeme.com',
+  origin: ['https://lasociedadelmeme.com', 'http://lasociedadelmeme.com'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
@@ -68,3 +68,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor de Express escuchando en el puerto ` + PORT);
 });
+

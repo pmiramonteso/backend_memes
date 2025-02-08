@@ -67,7 +67,6 @@ const actualizarUsuario = async (req, res) => {
   }
 };
 
-module.exports = {
-  obtenerUsuario,
-  actualizarUsuario
-};
+exports.obtenerUsuario = obtenerUsuario;
+exports.actualizarUsuario = actualizarUsuario;
+
