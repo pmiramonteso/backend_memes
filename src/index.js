@@ -44,7 +44,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/assets/img', express.static(path.join(__dirname, '/uploads')));
 
 // Servir archivos estáticos del frontend
-app.use(express.static(path.join(__dirname, '/frontend')));
+app.use(express.static(path.resolve(__dirname, 'frontend')));
+
 
 // Rutas administrativas
 app.use('/api/admin/memes', authenticateToken(['admin']), memeRutas);
@@ -64,8 +65,10 @@ app.use('/api/v1', verificarApiKey, memeRutas);
 
 // Redirigir todas las rutas no específicas de la API a index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/frontend/index.html'));
+  res.sendFile(path.resolve(__dirname, 'frontend', 'index.html'));
 });
+
+console.log('Ruta frontend:', path.resolve(__dirname, 'frontend', 'index.html'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
