@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../db.js';
 
-const ApiKey = sequelize.define('ApiKey', {
+const ApiKey = sequelize.define('apiKey', {
   id_apikey: {
     type: DataTypes.INTEGER(5).UNSIGNED,
     primaryKey: true,
@@ -16,7 +16,7 @@ const ApiKey = sequelize.define('ApiKey', {
     type: DataTypes.INTEGER(5).UNSIGNED,
     allowNull: false,
     references: {
-      model: 'Usuarios',
+      model: 'usuario',
       key: 'id_usuario',
     },
   },
