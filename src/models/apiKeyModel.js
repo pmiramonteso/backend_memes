@@ -1,7 +1,8 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../db.js';
+import Usuario from './usuarioModel.js';
 
-const ApiKey = sequelize.define('apiKey', {
+const ApiKey = sequelize.define('ApiKey', {
   id_apikey: {
     type: DataTypes.INTEGER(5).UNSIGNED,
     primaryKey: true,
@@ -10,7 +11,7 @@ const ApiKey = sequelize.define('apiKey', {
   key: {
     type: DataTypes.STRING(100),
     allowNull: false,
-    unique: true, // Asegúrate de que no haya duplicados en la base de datos
+    unique: true, 
   },
   usuario_id: {
     type: DataTypes.INTEGER(5).UNSIGNED,
@@ -25,19 +26,16 @@ const ApiKey = sequelize.define('apiKey', {
     allowNull: false,
     defaultValue: 'activo',
   },
-  created_at: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
-  updated_at: {
-    type: DataTypes.DATE,
-    allowNull: true,
-  },
 }, {
+  tableName: 'apikey',
   timestamps: true,
   updatedAt: 'updated_at',
   createdAt: 'created_at',
 });
 
+// Relación con Usuario
+Usuario.hasMany(ApiKey, { foreignKey: 'usuario_id' });
+ApiKey.belongsTo(Usuario, { foreignKey: 'usuario_id' });
+
 export default ApiKey;
+

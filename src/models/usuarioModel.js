@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../db.js';
 
-const Usuario = sequelize.define('usuario', {
+const Usuario = sequelize.define('Usuario', {
   id_usuario: {
     type: DataTypes.INTEGER(5).UNSIGNED,
     primaryKey: true,
@@ -18,6 +18,7 @@ const Usuario = sequelize.define('usuario', {
   email: {
     type: DataTypes.STRING(100),
     allowNull: false,
+    unique: true,
   },
   password: {
     type: DataTypes.STRING(100),
@@ -27,23 +28,9 @@ const Usuario = sequelize.define('usuario', {
     type: DataTypes.ENUM("admin", "usuario"),
     allowNull: false,
     defaultValue: 'usuario',
-    get() {
-      const rawValue = this.getDataValue('roles');
-      if (!rawValue) {
-        return [];
-      }
-      return rawValue.split(',');
-    },
-    set(value) {
-      if (Array.isArray(value)) {
-        this.setDataValue('roles', value.join(','));
-      } else if (typeof value === 'string') {
-        this.setDataValue('roles', value);
-      }
-    }
   },
 }, {
-  indexes: [{ unique: true, fields: ['email'] }],
+  tableName: 'usuario',
   timestamps: true,
   updatedAt: 'updated_at',
   createdAt: 'created_at'
