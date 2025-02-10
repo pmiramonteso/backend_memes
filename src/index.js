@@ -2,6 +2,8 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
 
 import authRutas from './routes/authRutas.js';
 import usuarioRutas from './routes/usuarioRutas.js';
@@ -14,10 +16,8 @@ import apiKeyRutas from './routes/apiKeyRutas.js';
 import { verificarApiKey } from './middlewares/verificarApiKey.js';
 import { testConnection, sequelize } from './db.js';
 import { authenticateToken } from './middlewares/authenticateToken.js';
-
 import { insertInitialUserData } from './start_data.js';
-import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
+
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -34,19 +34,30 @@ sequelize.sync({ alter: true }).then(() => {
 // Middlewares
 app.use(cors({
   credentials: true,
-  origin: ['https://lasociedadelmeme.com', 'http://lasociedadelmeme.com', 'http://localhost:4200', 'https://localhost:4200'],
+  origin: ['https://lasociedadelmeme.com',
+  'http://lasociedadelmeme.com',
+  'http://localhost:4200',
+  'https://localhost:4200'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   exposedHeaders: ['Set-Cookie'],
 }));
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-(async () => {
-  await testConnection();
-  //await insertInitialUserData();
-})();
+const initializeApp = async () => {
+  try {
+    await testConnection();
+    //await insertInitialUserData();
+    console.log('Conexión a base de datos establecida');
+  } catch (error) {
+    console.error('Error al inicializar la aplicación:', error);
+  }
+};
+
+initializeApp();
 
 app.use('/assets/img', express.static(path.join(__dirname, '/uploads')));
 
@@ -70,10 +81,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../../../frontend', 'index.html'));
 });
 
-console.log('Ruta frontend:', path.resolve(__dirname, '../../../frontend', 'index.html'));
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor de Express escuchando en el puerto ` + PORT);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+      console.log(`Servidor de desarrollo escuchando en el puerto ${PORT}`);
+  });
+} else {
+  console.log('Servidor iniciado en modo producción con Passenger');
+}
 
