@@ -11,7 +11,6 @@ const sequelize = new Sequelize(
     host: process.env.HOST_NAME,
     dialect: 'mysql',
     port: 3306,
-    logging: false,
   }
 );
 
@@ -19,8 +18,7 @@ const syncroModel = async () => {
   try {
     // Sincronizar el modelo con la base de datos (crear la tabla si no existe)
     // Con "alter: true" se sincronizan las columnas y se crean/eliminan si fuera necesario
-    await sequelize.sync({ alter: true }).then(() => {
-    }); 
+    await sequelize.sync({ force: false }); 
   } catch (error) {
     console.error('Error sincronizando los modelos:', error);
   }
