@@ -23,7 +23,12 @@ const Meme = sequelize.define('memes', {
     categoria_nombre: {
         type: DataTypes.STRING(50),
         allowNull: false,
-    }
+        references: {
+            model: Categorias,
+            key: 'nombre'
+        },
+        index: false
+    },
 }, {
     tableName: 'memes',
     timestamps: false,

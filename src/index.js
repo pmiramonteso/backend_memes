@@ -81,11 +81,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../../../frontend', 'index.html'));
 });
 
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-      console.log(`Servidor de desarrollo escuchando en el puerto ${PORT}`);
-  });
-} else {
-  console.log('Servidor iniciado en modo producción con Passenger');
-}
-
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor en ejecución en el puerto ${PORT}`);
+});
