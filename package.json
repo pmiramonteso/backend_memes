@@ -6,7 +6,6 @@
     "start": "node src/index.js",
     "dev": "npx nodemon src/index.js"
   },
-  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",

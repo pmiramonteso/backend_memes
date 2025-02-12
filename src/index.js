@@ -1,23 +1,25 @@
-import express from 'express';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import dotenv from 'dotenv';
+// Reemplaza `import` por `require`
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const path = require('path');
+const { fileURLToPath } = require('url');
+const dotenv = require('dotenv');
 
-import authRutas from './routes/authRutas.js';
-import usuarioRutas from './routes/usuarioRutas.js';
-import testRoutes from './routes/testRutas.js';
-import memeRutas from './routes/memeRutas.js';
-import categoriaRutas from './routes/categoriaRutas.js';
-import votosRutas from './routes/votosRutas.js';
-import apiKeyRutas from './routes/apiKeyRutas.js';
+const authRutas = require('./routes/authRutas.js');
+const usuarioRutas = require('./routes/usuarioRutas.js');
+const testRoutes = require('./routes/testRutas.js');
+const memeRutas = require('./routes/memeRutas.js');
+const categoriaRutas = require('./routes/categoriaRutas.js');
+const votosRutas = require('./routes/votosRutas.js');
+const apiKeyRutas = require('./routes/apiKeyRutas.js');
 
-import { verificarApiKey } from './middlewares/verificarApiKey.js';
-import { testConnection, sequelize } from './db.js';
-import { authenticateToken } from './middlewares/authenticateToken.js';
-import { insertInitialUserData } from './start_data.js';
+const { verificarApiKey } = require('./middlewares/verificarApiKey.js');
+const { testConnection, sequelize } = require('./db.js');
+const { authenticateToken } = require('./middlewares/authenticateToken.js');
+const { insertInitialUserData } = require('./start_data.js');
 
+// Configuración de dotenv
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -25,6 +27,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+// Sincronización con la base de datos
 sequelize.sync({ alter: true }).then(() => {
   console.log('Modelos sincronizados con la base de datos');
 }).catch(error => {
