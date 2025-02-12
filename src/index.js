@@ -78,7 +78,7 @@ app.use('/api/keys', apiKeyRutas);
 app.use('/api/v1', verificarApiKey, memeRutas);
 // Redirigir todas las rutas no específicas de la API a index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../../../frontend', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '../frontend', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;
