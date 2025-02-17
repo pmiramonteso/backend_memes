@@ -16,7 +16,6 @@ const { authenticateToken } = require('./middlewares/authenticateToken.js');
 
 // Configuración de dotenv
 dotenv.config();
-
 const app = express();
 
 // Sincronización con la base de datos
@@ -31,7 +30,6 @@ app.use(cors({
   credentials: true,
   origin: [
     'https://lasociedadelmeme.com',
-    'http://lasociedadelmeme.com',
     'http://localhost:4200',
     'https://localhost:4200'
   ],
@@ -58,7 +56,7 @@ initializeApp();
 app.use('/assets/img', express.static(path.join(__dirname, '/uploads')));
 
 // Servir archivos estáticos del frontend
-app.use(express.static(path.resolve(__dirname, 'frontend')));
+app.use(express.static(path.resolve(__dirname, '../../lasociedadelmeme.com/index.html')));
 
 // Rutas administrativas
 app.use('/api/admin/memes', authenticateToken(['admin']), memeRutas);
@@ -78,11 +76,17 @@ app.use('/api/v1', verificarApiKey, memeRutas);
 
 // Redirigir todas las rutas no específicas de la API a index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'frontend', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '../../lasociedadelmeme.com/index.html'));
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Servidor en ejecución en http://0.0.0.0:${PORT}`);
-});
+if (process.env.NODE_ENV === 'development') {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Servidor en ejecución en http://0.0.0.0:${PORT}`);
+  }).on('error', (err) => {
+    console.error('Error al iniciar el servidor:', err);
+  });
+} else {
+  module.exports = app;
+}
 

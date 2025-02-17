@@ -1,10 +1,10 @@
 {
-  "name": "lasociedadelmeme-backend",
+  "name": "backend_memes",
   "version": "1.0.0",
-  "main": "index.cjs",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.cjs",
-    "dev": "npx nodemon src/index.js"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -32,5 +32,8 @@
   "devDependencies": {
     "nodemon": "^3.1.9",
     "sequelize-cli": "^6.6.2"
+  },
+  "engines": {
+    "node": ">=19.0.0"
   }
 }
